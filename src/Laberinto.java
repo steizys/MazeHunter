@@ -121,11 +121,13 @@ public class Laberinto {
         // Colocar elementos proporcionalmente
         int numTrampas = Math.max(1, caminosDisponibles / 8);
         int numVidasExtra = Math.max(1, caminosDisponibles / 12);
+        int numCristal = Math.max(1, caminosDisponibles / 16);
         int numLlaves = 1;
 
         colocarElemento(numTrampas, "TRAMPA");
         colocarElemento(numVidasExtra, "VIDA_EXTRA");
         colocarElemento(numLlaves, "LLAVE");
+        colocarElemento(numCristal, "CRISTAL");
     }
 
     private void colocarElemento(int cantidad, String tipo) {
@@ -149,6 +151,9 @@ public class Laberinto {
                     case "LLAVE":
                         matrizJuego[x][y] = new Llave();
                         break;
+                    case "CRISTAL":
+                        matrizJuego[x][y] = new Cristal();
+                        break;
                 }
                 colocados++;
             }
@@ -158,7 +163,7 @@ public class Laberinto {
 
     public void mostrarLaberinto() {
         System.out.println("\n=== LABERINTO " + tamanio + "x" + tamanio + " ===");
-        System.out.println("I = Inicio, M = Meta, # = Muro, T = Trampa, V = Vida, L = Llave\n");
+        System.out.println("I = Inicio, M = Meta, # = Muro, T = Trampa, V = Vida, L = Llave, C = Cristal\n");
 
         for (int i = 0; i < tamanio; i++) {
             for (int j = 0; j < tamanio; j++) {
