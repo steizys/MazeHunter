@@ -1,7 +1,0 @@
-public class Main {
-    //hola muajajajaj yey tirale tirale
-
-    //ffffffffffmmmm
-    //holi
-    //hey
-}
