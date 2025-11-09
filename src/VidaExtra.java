@@ -5,5 +5,8 @@ public class VidaExtra extends Celda {
         super("+", false, true);
     }
 
-    public  void comportamiento(Jugador jugador){};
+    public  void comportamiento(Jugador jugador){
+        jugador.setPuntosDeVida(jugador.getPuntosDeVida() + 5);
+
+    };
 }
