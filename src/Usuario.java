@@ -8,6 +8,10 @@ public class Usuario {
     private Partida partida;
     private ArrayList<Estadistica> estadisticas;
 
+    // Constructor vacío necesario para Jackson
+    public Usuario() {
+    }
+
     public Usuario(String correo, String contrasenia, Partida partida, ArrayList<Estadistica> estadisticas) {
         this.correo = correo;
         this.contrasenia = contrasenia;
