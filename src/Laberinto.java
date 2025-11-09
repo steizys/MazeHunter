@@ -206,12 +206,15 @@ public class Laberinto {
                 else otros++;
             }
         }
-
+    /*
         System.out.println("\nEstadísticas:");
         System.out.println("Muros: " + muros + " (" + (muros * 100 / (tamanio * tamanio)) + "%)");
         System.out.println("Caminos: " + caminos + " (" + (caminos * 100 / (tamanio * tamanio)) + "%)");
         System.out.println("Otros: " + otros + " (" + (otros * 100 / (tamanio * tamanio)) + "%)");
+
+     */
     }
+
     public void mostrarLaberinto(Posicion posicion, Jugador jugador) {
         System.out.println("\n=== LABERINTO " + tamanio + "x" + tamanio + " ===");
         System.out.println("I = Inicio, M = Meta, # = Muro, T = Trampa, V = Vida, L = Llave, C = Cristal\n");
@@ -226,10 +229,11 @@ public class Laberinto {
             }
             System.out.println();
         }
-
+        /*
         System.out.println("\nEstadísticas:");
         System.out.println("Puntos de Vida: " + jugador.getPuntosDeVida());
         System.out.println("Trampas activadas : " + jugador.getTrampasActivadas());
         System.out.println("Cristales recolectados : " + jugador.getCristalesRecolectados());
+         */
     }
 }

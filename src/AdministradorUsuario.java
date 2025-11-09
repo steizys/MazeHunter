@@ -19,8 +19,6 @@ public class AdministradorUsuario implements GuardarJson{
     private ArrayList<Usuario> usuarios;
 
     private SecretKey claveSecreta;
-
-
     public AdministradorUsuario(ArrayList<Usuario> usuarios) {
         this.usuarios = usuarios;
         try {
@@ -35,7 +33,6 @@ public class AdministradorUsuario implements GuardarJson{
     public ArrayList<Usuario> getUsuarios() {
         return usuarios;
     }
-
     public void setUsuarios(ArrayList<Usuario> usuarios) {
         this.usuarios = usuarios;
     }

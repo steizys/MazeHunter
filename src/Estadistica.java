@@ -1,28 +1,60 @@
 package src;
 
+import java.time.Duration;
 import java.time.Instant;
 
 public class Estadistica {
-    private Instant tiempo;
+    private Instant tiempoInicio;
+    private Instant tiempoFinal;
     private int tamanoDeMatriz;
     private int cristalesRecolectados;
     private int puntosDeVida;
-
-    public Estadistica(Instant tiempo, int tamanoDeMatriz, int cristalesRecolectados, int puntosDeVida) {
-        this.tiempo = tiempo;
+    private int trampasActivadas;
+    public Estadistica() {
+    }
+    public Estadistica(Instant tiempoInicial, Instant tiempoFinal, int tamanoDeMatriz, int cristalesRecolectados, int puntosDeVida, int trampasActivadas) {
+        this.tiempoInicio = tiempoInicial;
+        this.tiempoFinal = tiempoFinal;
         this.tamanoDeMatriz = tamanoDeMatriz;
         this.cristalesRecolectados = cristalesRecolectados;
         this.puntosDeVida = puntosDeVida;
+        this.trampasActivadas = trampasActivadas;
     }
 
-    public void mostrarEstadistica(){};
+    public void mostrarEstadistica(){
+        System.out.println("---- ESTADISTICAS ----");
+        System.out.println("- Tiempo: " +
+        Duration.between(tiempoInicio, tiempoFinal).toHours() + "h " +
+        (Duration.between(tiempoInicio, tiempoFinal).toMinutes() % 60) + "m " +
+        (Duration.between(tiempoInicio, tiempoFinal).getSeconds() % 60) + "s");
+        System.out.println("- Tamanio: " + this.tamanoDeMatriz);
+        System.out.println("- Cristales recolectados: " + this.cristalesRecolectados);
+        System.out.println("- Puntos de vida: " + this.puntosDeVida);
+        System.out.println("- Trampas activadas: " + this.trampasActivadas);
+    };
 
-    public Instant getTiempo() {
-        return tiempo;
+    public Instant getTiempoInicio() {
+        return tiempoInicio;
     }
 
-    public void setTiempo(Instant tiempo) {
-        this.tiempo = tiempo;
+    public void setTiempoInicio(Instant tiempoInicio) {
+        this.tiempoInicio = tiempoInicio;
+    }
+
+    public Instant getTiempoFinal() {
+        return tiempoFinal;
+    }
+
+    public void setTiempoFinal(Instant tiempoFinal) {
+        this.tiempoFinal = tiempoFinal;
+    }
+
+    public int getTrampasActivadas() {
+        return trampasActivadas;
+    }
+
+    public void setTrampasActivadas(int trampasActivadas) {
+        this.trampasActivadas = trampasActivadas;
     }
 
     public int getTamanoDeMatriz() {
