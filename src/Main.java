@@ -3,6 +3,8 @@ import java.time.Instant;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.Duration;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -38,12 +40,15 @@ public class Main {
         final String FONDO_MAGENTA = "\u001B[105m";
         final String FONDO_CYAN = "\u001B[106m";
         final String FONDO_BLANCO = "\u001B[107m";
-
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Usuario> usuarios = new ArrayList<>(); //Creado bajo la informacion del JSON
-        AdministradorUsuario administradorUsuario=new AdministradorUsuario(usuarios);
-        Usuario usuario=null;
-        administradorUsuario.registrar("amelie@gmail.com", "AmelieMoreno24*");;
+
+        AdministradorUsuario administradorUsuario = new AdministradorUsuario(new ArrayList<>());
+
+
+        Usuario usuario = null;
+
+        // Registrar usuario (se cifrará automáticamente)
+        administradorUsuario.registrar("amelie@gmail.com", "AmelieMoreno24*");
 
         System.out.println("Inicio del juego");
         System.out.println("1. Iniciar sesion");
@@ -107,8 +112,14 @@ public class Main {
 
             if (opcion == 1){
                 System.out.println("      JUGAR NUEVO LABERINTO         ");
-                System.out.println("\n Ingrese el tamaño del laberinto (4 - ...):  ");
+                System.out.println("\n Ingrese el tamaño del laberinto (6 - ...):  ");
                 int tamanio = scanner.nextInt();
+                if  (tamanio < 6){
+                    System.out.println("\n Error: El laberinto debe ser de un tamaño igual o mayor a 6 ");
+                }
+
+                Instant tiempoInicio = Instant.now();
+
                 Laberinto laberinto= new Laberinto(tamanio);
                 Jugador jugador=new Jugador(laberinto.obtenerPosicionInicial());
                 laberinto.mostrarLaberintoPrincipal(jugador.getPosicion());
@@ -125,7 +136,7 @@ public class Main {
 
                     if (opcion2 == null || opcion2.trim().isEmpty()) {
                         System.out.println(" Error: Ingrese un comando válido");
-                        continue; // Volver al inicio del ciclo
+                        continue;
                     }
 
                     movimiento = opcion2.trim().charAt(0);
@@ -144,7 +155,15 @@ public class Main {
                         System.out.println(" Movimiento inválido. Use W, A, S, D");
                     }
                     laberinto.mostrarLaberinto(jugador.getPosicion(), jugador);
+
                 }
+
+                Instant tiempoFinal = Instant.now();
+
+                Estadistica estadistica = new Estadistica(tiempoInicio, tiempoFinal, tamanio, jugador.getCristalesRecolectados(), jugador.getPuntosDeVida(), jugador.getTrampasActivadas());
+                ArrayList<Estadistica> estadisticas = new ArrayList<>();
+                estadistica.mostrarEstadistica();
+
             }
         }
     }
