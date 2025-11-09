@@ -9,6 +9,10 @@ public class Partida {
     private Instant tiempoInicio;
     private Instant tiempoFinal;
     private Estadistica estadistica;
+
+    public Partida() {
+    }
+
     public Partida(Laberinto laberinto, Jugador jugador, Instant tiempoInicio, Instant tiempoFinal, Estadistica estadistica) {
         this.laberinto = laberinto;
         this.jugador = jugador;

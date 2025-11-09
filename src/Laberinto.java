@@ -6,11 +6,15 @@ import java.util.List;
 import java.util.Random;
 
 public class Laberinto {
-    private final int tamanio;
+    private int tamanio;
     private Celda[][] matrizJuego;
     private Random random;
-    private static Posicion posicionInicial;
-    private static Posicion posicionFinal;
+    private Posicion posicionInicial;
+    private Posicion posicionFinal;
+
+    public Laberinto() {
+        this.random = new Random();
+    }
 
     public Laberinto(int tamanio) {
         // Asegurar tamaño impar para que funcione bien el algoritmo
@@ -18,6 +22,22 @@ public class Laberinto {
         this.matrizJuego = new Celda[this.tamanio][this.tamanio];
         this.random = new Random();
         crearLaberinto();
+    }
+
+    public void setTamanio(int tamanio) {
+        this.tamanio = tamanio;
+    }
+
+    public void setMatrizJuego(Celda[][] matrizJuego) {
+        this.matrizJuego = matrizJuego;
+    }
+
+    public void setPosicionInicial(Posicion posicionInicial) {
+        this.posicionInicial = posicionInicial;
+    }
+
+    public void setPosicionFinal(Posicion posicionFinal) {
+        this.posicionFinal = posicionFinal;
     }
 
     public int getTamanio() {
@@ -30,10 +50,6 @@ public class Laberinto {
 
     public Celda getMatrizJuegoPosicion(int x, int y) {
         return matrizJuego[x][y];
-    }
-
-    public void setMatrizJuego(Celda[][] matrizJuego) {
-        this.matrizJuego = matrizJuego;
     }
 
     public Random getRandom() {
@@ -235,5 +251,81 @@ public class Laberinto {
         System.out.println("Trampas activadas : " + jugador.getTrampasActivadas());
         System.out.println("Cristales recolectados : " + jugador.getCristalesRecolectados());
          */
+    }
+
+    public void reiniciarEstado() {
+        // ✅ PRIMERO REPARAR POSICIONES
+        repararPosiciones();
+
+        if (matrizJuego != null && posicionFinal != null) {
+            // Asegurar que la meta no esté visitada al cargar
+            matrizJuego[posicionFinal.getX()][posicionFinal.getY()].setVisitada(false);
+
+            // Verificar que todas las celdas tengan el estado correcto
+            for (int i = 0; i < tamanio; i++) {
+                for (int j = 0; j < tamanio; j++) {
+                    if (matrizJuego[i][j] != null) {
+                        // Restaurar la representación si es necesario
+                        if (matrizJuego[i][j] instanceof Inicio) {
+                            matrizJuego[i][j].setRepresentacion("S");
+                        } else if (matrizJuego[i][j] instanceof Meta) {
+                            matrizJuego[i][j].setRepresentacion("X");
+                        } else if (matrizJuego[i][j] instanceof CaminoLibre) {
+                            matrizJuego[i][j].setRepresentacion(".");
+                        } else if (matrizJuego[i][j] instanceof Muro) {
+                            matrizJuego[i][j].setRepresentacion("#");
+                        } else if (matrizJuego[i][j] instanceof Trampa) {
+                            matrizJuego[i][j].setRepresentacion("T");
+                        } else if (matrizJuego[i][j] instanceof VidaExtra) {
+                            matrizJuego[i][j].setRepresentacion("V");
+                        } else if (matrizJuego[i][j] instanceof Llave) {
+                            matrizJuego[i][j].setRepresentacion("L");
+                        } else if (matrizJuego[i][j] instanceof Cristal) {
+                            matrizJuego[i][j].setRepresentacion("C");
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void repararPosiciones() {
+        // Si las posiciones son null, buscarlas en la matriz
+        if (posicionInicial == null) {
+            buscarPosicionInicial();
+        }
+        if (posicionFinal == null) {
+            buscarPosicionFinal();
+        }
+    }
+
+    private void buscarPosicionInicial() {
+        for (int i = 0; i < tamanio; i++) {
+            for (int j = 0; j < tamanio; j++) {
+                if (matrizJuego[i][j] instanceof Inicio) {
+                    posicionInicial = new Posicion(i, j);
+                    return;
+                }
+            }
+        }
+        // Si no encuentra inicio, poner uno por defecto
+        if (posicionInicial == null) {
+            posicionInicial = new Posicion(1, 1);
+        }
+    }
+
+    private void buscarPosicionFinal() {
+        for (int i = 0; i < tamanio; i++) {
+            for (int j = 0; j < tamanio; j++) {
+                if (matrizJuego[i][j] instanceof Meta) {
+                    posicionFinal = new Posicion(i, j);
+                    return;
+                }
+            }
+        }
+        // Si no encuentra meta, poner una por defecto
+        if (posicionFinal == null) {
+            posicionFinal = new Posicion(tamanio - 2, tamanio - 2);
+        }
     }
 }

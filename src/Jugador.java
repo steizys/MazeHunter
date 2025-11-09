@@ -9,13 +9,17 @@ public class Jugador implements Movimiento {
     private int cristalesRecolectados ;
     private int trampasActivadas ;
 
-    public Jugador(Posicion posicion) {
+    public Jugador() {
         this.puntosDeVida = 100;
         this.representacion = "J";
         this.obtuvoLlave = false;
-        this.posicion = posicion;
         this.cristalesRecolectados = 0;
         this.trampasActivadas = 0;
+    }
+
+    public Jugador(Posicion posicion) {
+        this();
+        this.posicion = posicion;
     }
 
     public int getPuntosDeVida() {

@@ -10,8 +10,11 @@ public class Estadistica {
     private int cristalesRecolectados;
     private int puntosDeVida;
     private int trampasActivadas;
+
+    // Constructor vacío necesario para Jackson
     public Estadistica() {
     }
+
     public Estadistica(Instant tiempoInicial, Instant tiempoFinal, int tamanoDeMatriz, int cristalesRecolectados, int puntosDeVida, int trampasActivadas) {
         this.tiempoInicio = tiempoInicial;
         this.tiempoFinal = tiempoFinal;
