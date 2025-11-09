@@ -5,7 +5,10 @@ public class Llave extends Celda {
         super("L", false, true);
     }
 
-    public  void comportamiento(Jugador jugador){};
+    public  void comportamiento(Jugador jugador){
+        jugador.setObtuvoLlave(true);
+        System.out.println(" HAS OBTENIDO LA LLAVE");
+    };
 
 
 }

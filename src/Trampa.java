@@ -5,5 +5,8 @@ public class Trampa extends Celda {
         super("T", false, true);
     }
 
-    public  void comportamiento(Jugador jugador){};
+    public  void comportamiento(Jugador jugador){
+        jugador.setPuntosDeVida(jugador.getPuntosDeVida() - 5);
+        jugador.setTrampasActivadas(jugador.getTrampasActivadas() + 1);
+    };
 }

@@ -7,6 +7,7 @@ public class Cristal extends Celda{
     }
 
     public  void comportamiento(Jugador jugador){
+        jugador.setCristalesRecolectados(jugador.getCristalesRecolectados() +1);
 
     };
 }

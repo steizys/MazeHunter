@@ -9,6 +9,8 @@ public class Laberinto {
     private final int tamanio;
     private Celda[][] matrizJuego;
     private Random random;
+    private static Posicion posicionInicial;
+    private static Posicion posicionFinal;
 
     public Laberinto(int tamanio) {
         // Asegurar tamaño impar para que funcione bien el algoritmo
@@ -24,6 +26,10 @@ public class Laberinto {
 
     public Celda[][] getMatrizJuego() {
         return matrizJuego;
+    }
+
+    public Celda getMatrizJuegoPosicion(int x, int y) {
+        return matrizJuego[x][y];
     }
 
     public void setMatrizJuego(Celda[][] matrizJuego) {
@@ -50,6 +56,8 @@ public class Laberinto {
         int inicioX = random.nextInt((tamanio - 2) / 2) * 2 + 1;
         int inicioY = random.nextInt((tamanio - 2) / 2) * 2 + 1;
 
+        posicionInicial = new Posicion(inicioX, inicioY);
+
         matrizJuego[inicioX][inicioY] = new Inicio();
         matrizJuego[inicioX][inicioY].setVisitada(true);
 
@@ -65,11 +73,24 @@ public class Laberinto {
                 !(matrizJuego[metaX][metaY] instanceof CaminoLibre));
 
         matrizJuego[metaX][metaY] = new Meta();
+        posicionFinal = new Posicion(metaX, metaY);
+
+        if (posicionFinal != null) {
+            matrizJuego[posicionFinal.getX()][posicionFinal.getY()].setVisitada(false);
+        }
 
         // 5. Agregar elementos especiales
         agregarElementosEspeciales();
 
         return matrizJuego;
+    }
+
+    public Posicion obtenerPosicionInicial(){
+        return posicionInicial;
+    }
+
+    public Posicion obtenerPosicionFinal(){
+        return posicionFinal;
     }
 
     private void generarLaberinto(int x, int y) {
@@ -110,6 +131,7 @@ public class Laberinto {
     private void agregarElementosEspeciales() {
         // Contar caminos disponibles
         int caminosDisponibles = 0;
+
         for (int i = 0; i < tamanio; i++) {
             for (int j = 0; j < tamanio; j++) {
                 if (matrizJuego[i][j] instanceof CaminoLibre) {
@@ -140,7 +162,6 @@ public class Laberinto {
             int y = random.nextInt(tamanio - 2) + 1;
 
             if (matrizJuego[x][y] instanceof CaminoLibre) {
-
                 switch (tipo) {
                     case "TRAMPA":
                         matrizJuego[x][y] = new Trampa();
@@ -161,13 +182,17 @@ public class Laberinto {
         }
     }
 
-    public void mostrarLaberinto() {
+    public void mostrarLaberintoPrincipal(Posicion posicion) {
         System.out.println("\n=== LABERINTO " + tamanio + "x" + tamanio + " ===");
         System.out.println("I = Inicio, M = Meta, # = Muro, T = Trampa, V = Vida, L = Llave, C = Cristal\n");
 
         for (int i = 0; i < tamanio; i++) {
             for (int j = 0; j < tamanio; j++) {
-                System.out.print(matrizJuego[i][j].getRepresentacion() + " ");
+                if (i==posicion.getX() &&  j==posicion.getY()) {
+                    System.out.print("J"+ " ");
+                }else{
+                    System.out.print(matrizJuego[i][j].getRepresentacion() + " ");
+                }
             }
             System.out.println();
         }
@@ -186,5 +211,25 @@ public class Laberinto {
         System.out.println("Muros: " + muros + " (" + (muros * 100 / (tamanio * tamanio)) + "%)");
         System.out.println("Caminos: " + caminos + " (" + (caminos * 100 / (tamanio * tamanio)) + "%)");
         System.out.println("Otros: " + otros + " (" + (otros * 100 / (tamanio * tamanio)) + "%)");
+    }
+    public void mostrarLaberinto(Posicion posicion, Jugador jugador) {
+        System.out.println("\n=== LABERINTO " + tamanio + "x" + tamanio + " ===");
+        System.out.println("I = Inicio, M = Meta, # = Muro, T = Trampa, V = Vida, L = Llave, C = Cristal\n");
+
+        for (int i = 0; i < tamanio; i++) {
+            for (int j = 0; j < tamanio; j++) {
+                if (i==posicion.getX() &&  j==posicion.getY()) {
+                    System.out.print("J"+ " ");
+                }else{
+                    System.out.print(matrizJuego[i][j].getRepresentacion() + " ");
+                }
+            }
+            System.out.println();
+        }
+
+        System.out.println("\nEstadísticas:");
+        System.out.println("Puntos de Vida: " + jugador.getPuntosDeVida());
+        System.out.println("Trampas activadas : " + jugador.getTrampasActivadas());
+        System.out.println("Cristales recolectados : " + jugador.getCristalesRecolectados());
     }
 }
