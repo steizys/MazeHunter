@@ -7,7 +7,7 @@ public class Meta extends Celda {
     }
 
     public  void comportamiento(Jugador jugador){
-        if (jugador.isObtuvoLlave()){
+        if (jugador.isObtuvoLlave() && (jugador.getCristalesRecolectados()>=1)){
             System.out.println("HAS LLEGADO A LA META Y TIENES LA LLAVE");
             setVisitada(true);
         }else{

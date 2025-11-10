@@ -10,7 +10,10 @@ public class Partida {
     private Instant tiempoFinal;
     private Estadistica estadistica;
 
+    private Duration tiempoAcumulado; // ✅ NUEVO: Tiempo acumulado cuando se pausa
+
     public Partida() {
+        this.tiempoAcumulado = Duration.ZERO;
     }
 
     public Partida(Laberinto laberinto, Jugador jugador, Instant tiempoInicio, Instant tiempoFinal, Estadistica estadistica) {
@@ -19,11 +22,41 @@ public class Partida {
         this.tiempoInicio = tiempoInicio;
         this.tiempoFinal = tiempoFinal;
         this.estadistica = estadistica;
+        this.tiempoAcumulado = Duration.ZERO;
     }
 
-    public Estadistica mostrarEstadistica(){
-        return estadistica;
-    };
+    // Método para pausar el tiempo
+    public void pausarTiempo() {
+        if (tiempoInicio != null && tiempoAcumulado != null) {
+            Duration tiempoTranscurrido = Duration.between(tiempoInicio, Instant.now());
+            tiempoAcumulado = tiempoAcumulado.plus(tiempoTranscurrido);
+            tiempoInicio = null; // Detener el contador
+        }
+    }
+
+    // Método para reanudar el tiempo
+    public void reanudarTiempo() {
+        if (tiempoInicio == null && tiempoAcumulado != null) {
+            tiempoInicio = Instant.now();
+        }
+    }
+
+    // Método para obtener el tiempo total transcurrido
+    public Duration obtenerTiempoTranscurrido() {
+        Duration tiempoTotal = tiempoAcumulado;
+        if (tiempoInicio != null) {
+            tiempoTotal = tiempoTotal.plus(Duration.between(tiempoInicio, Instant.now()));
+        }
+        return tiempoTotal;
+    }
+
+    // Método para finalizar la partida y obtener tiempo final
+    public Duration finalizarPartida() {
+        if (tiempoInicio != null) {
+            pausarTiempo(); // Pausar antes de finalizar
+        }
+        return tiempoAcumulado;
+    }
 
     public Laberinto getLaberinto() {
         return laberinto;
@@ -63,5 +96,13 @@ public class Partida {
 
     public void setEstadistica(Estadistica estadistica) {
         this.estadistica = estadistica;
+    }
+
+    public Duration getTiempoAcumulado() {
+        return tiempoAcumulado;
+    }
+
+    public void setTiempoAcumulado(Duration tiempoAcumulado) {
+        this.tiempoAcumulado = tiempoAcumulado;
     }
 }

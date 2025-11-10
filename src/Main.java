@@ -266,15 +266,27 @@ public class Main {
     /**
      * MÉTODO PARA MANEJAR EL JUEGO DE UNA PARTIDA
      */
+    /**
+     * MÉTODO PARA MANEJAR EL JUEGO DE UNA PARTIDA
+     */
     private static void jugarPartida(Usuario usuario, Laberinto laberinto, Jugador jugador,
                                      Instant tiempoInicio, GestorJSON gestorJSON,
                                      AdministradorUsuario administradorUsuario, Scanner scanner) {
 
         boolean jugando = true;
         boolean partidaGanada = false;
-        boolean salioConX = false;
 
-        // ✅ NUEVO: VERIFICAR POSICIONES ANTES DE COMENZAR
+        // Obtener la partida actual y reanudar tiempo
+        Partida partidaActual = usuario.getPartida();
+        if (partidaActual != null) {
+            partidaActual.reanudarTiempo();
+        } else {
+            // Si no existe partida, crear una nueva
+            partidaActual = new Partida(laberinto, jugador, tiempoInicio, null, null);
+            usuario.setPartida(partidaActual);
+        }
+
+        // VERIFICAR POSICIONES ANTES DE COMENZAR
         if (laberinto.obtenerPosicionFinal() == null) {
             System.out.println("⚠️ Reparando posiciones del laberinto...");
             laberinto.repararPosiciones();
@@ -290,6 +302,13 @@ public class Main {
             System.out.println("-----------------------------------");
             System.out.println("Vida: " + jugador.getPuntosDeVida() + " | Cristales: " + jugador.getCristalesRecolectados());
             System.out.println("Llave: " + (jugador.isObtuvoLlave() ? "✅" : "❌"));
+
+            // Mostrar tiempo transcurrido
+            Duration tiempoTranscurrido = partidaActual.obtenerTiempoTranscurrido();
+            System.out.println("⏱️  Tiempo: " +
+                    tiempoTranscurrido.toMinutes() + "m " +
+                    (tiempoTranscurrido.getSeconds() % 60) + "s");
+
             System.out.print("Ingrese movimiento: ");
 
             String opcionMovimiento = scanner.nextLine();
@@ -311,24 +330,17 @@ public class Main {
                 jugador.moverseIzquierda(jugador, laberinto);
             } else if (movimiento == 'X') {
                 System.out.println("💾 Saliendo y guardando partida...");
-                Partida partidaActual = new Partida(laberinto, jugador, tiempoInicio, null, null);
-                usuario.setPartida(partidaActual);
 
-                try {
-                    gestorJSON.guardarEstadoCompleto(usuario);
-                    System.out.println("✅ Partida guardada exitosamente");
-                } catch (IOException e) {
-                    System.out.println("❌ Error guardando partida: " + e.getMessage());
-                }
-
-                salioConX = true; // Marcar que salió con X
+                // PAUSAR EL TIEMPO ANTES DE SALIR
+                partidaActual.pausarTiempo();
                 break;
+
             } else {
                 System.out.println("❌ Movimiento inválido. Use W, A, S, D");
                 continue;
             }
 
-            // ✅ NUEVO: VERIFICACIÓN SEGURA DE POSICIÓN FINAL
+            // VERIFICACIÓN SEGURA DE POSICIÓN FINAL
             Posicion posFinal = laberinto.obtenerPosicionFinal();
             if (posFinal != null) {
                 // VERIFICAR SI LLEGÓ A LA META
@@ -357,33 +369,43 @@ public class Main {
             }
 
             // ========== GUARDADO EN TIEMPO REAL ==========
-            if(!salioConX){
-                Partida partidaActual = new Partida(laberinto, jugador, tiempoInicio, null, null);
-                usuario.setPartida(partidaActual);
+            usuario.setPartida(partidaActual);
 
-                // VERIFICAR ANTES DE GUARDAR
-                if (usuario.getPartida() == null || usuario.getPartida().getLaberinto() == null) {
-                    System.out.println("⚠️ Advertencia: Problema al preparar datos para guardar");
-                } else {
-                    try {
-                        gestorJSON.guardarEstadoCompleto(usuario);
-                        System.out.println("💾 Progreso guardado automáticamente");
-                    } catch (IOException e) {
-                        System.out.println("⚠️ No se pudo guardar el progreso: " + e.getMessage());
-                    }
+            // VERIFICAR ANTES DE GUARDAR
+            if (usuario.getPartida() == null || usuario.getPartida().getLaberinto() == null) {
+                System.out.println("⚠️ Advertencia: Problema al preparar datos para guardar");
+            } else {
+                try {
+                    // PAUSAR TEMPORALMENTE PARA GUARDAR
+                    partidaActual.pausarTiempo();
+                    gestorJSON.guardarEstadoCompleto(usuario);
+                    partidaActual.reanudarTiempo(); // Reanudar después de guardar
+
+                    System.out.println("💾 Progreso guardado automáticamente");
+
+                } catch (IOException e) {
+                    System.out.println("⚠️ No se pudo guardar el progreso: " + e.getMessage());
                 }
             }
-
         }
 
         // SI LA PARTIDA TERMINÓ (GANÓ O PERDIÓ)
         if (!jugando) {
+            // FINALIZAR PARTIDA Y OBTENER TIEMPO FINAL
+            Duration tiempoTotal = partidaActual.finalizarPartida();
             Instant tiempoFinal = Instant.now();
 
             if (partidaGanada || !jugador.sigueVivo()) {
-                Estadistica estadistica = new Estadistica(tiempoInicio, tiempoFinal, laberinto.getTamanio(),
-                        jugador.getCristalesRecolectados(), jugador.getPuntosDeVida(),
-                        jugador.getTrampasActivadas());
+                // ✅ CORREGIDO: Pasar el tiempo jugado real al constructor
+                Estadistica estadistica = new Estadistica(
+                        tiempoInicio,
+                        tiempoFinal,
+                        laberinto.getTamanio(),
+                        jugador.getCristalesRecolectados(),
+                        jugador.getPuntosDeVida(),
+                        jugador.getTrampasActivadas(),
+                        tiempoTotal  // ✅ Este es el tiempo real jugado (con pausas)
+                );
 
                 // GUARDAR ESTADÍSTICA Y LIMPIAR PARTIDA ACTUAL
                 try {
@@ -392,6 +414,10 @@ public class Main {
                     gestorJSON.guardarEstadoCompleto(usuario);
 
                     System.out.println("\n📊 ESTADÍSTICAS FINALES:");
+                    // Mostrar tiempo total correcto
+                    long minutos = tiempoTotal.toMinutes();
+                    long segundos = tiempoTotal.getSeconds() % 60;
+                    System.out.println("⏱️  Tiempo total jugado: " + minutos + " minutos " + segundos + " segundos");
                     estadistica.mostrarEstadistica();
 
                 } catch (IOException e) {
