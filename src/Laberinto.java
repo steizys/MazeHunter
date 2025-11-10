@@ -238,7 +238,7 @@ public class Laberinto {
         for (int i = 0; i < tamanio; i++) {
             for (int j = 0; j < tamanio; j++) {
                 if (i==posicion.getX() &&  j==posicion.getY()) {
-                    System.out.print("J"+ " ");
+                    System.out.print("@"+ " ");
                 }else{
                     System.out.print(matrizJuego[i][j].getRepresentacion() + " ");
                 }
