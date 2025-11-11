@@ -76,7 +76,7 @@ public class Jugador implements Movimiento {
             celda.comportamiento(jugador);
             Jugador.this.posicion.setX(this.posicion.getX()-1);
         }else{
-            System.out.println("No puede mover porque es un MURO");
+            System.out.println("❌ No puede mover porque es un MURO");
         }
     };
 
@@ -86,7 +86,7 @@ public class Jugador implements Movimiento {
             celda.comportamiento(jugador);
             Jugador.this.posicion.setX(this.posicion.getX()+1);
         }else{
-            System.out.println("No puede mover porque es un MURO");
+            System.out.println("❌ No puede mover porque es un MURO");
         }
     };
 
@@ -96,7 +96,7 @@ public class Jugador implements Movimiento {
             celda.comportamiento(jugador);
             Jugador.this.posicion.setY(this.posicion.getY()+1);
         }else{
-            System.out.println("No puede mover porque es un MURO");
+            System.out.println("❌ No puede mover porque es un MURO");
         }
     };
 
@@ -106,7 +106,7 @@ public class Jugador implements Movimiento {
             celda.comportamiento(jugador);
             Jugador.this.posicion.setY(this.posicion.getY()-1);
         }else{
-            System.out.println("No puede mover porque es un MURO");
+            System.out.println("❌ No puede mover porque es un MURO");
         }
     };
 

@@ -91,6 +91,7 @@ public class AdministradorUsuario {
     }
 
     public boolean buscarCorreo(String correo) {
+
         for (Usuario usuario : usuarios) {
             try {
                 String correoDescifrado = descifrar(usuario.getCorreo());
@@ -176,24 +177,33 @@ public class AdministradorUsuario {
         return true;
     }
 
-    // MODIFICADO: Quitar el guardado automático en JSON
-    // MODIFICADO: Quitar el guardado automático en JSON y retornar el usuario creado
     public Usuario registrar(String correo, String contrasenia) {
         try {
+            // Validar campos vacíos
+            if (correo == null || correo.trim().isEmpty()) {
+                System.out.println("❌ Error: El correo electrónico no puede estar vacío");
+                return null;
+            }
+
+            if (contrasenia == null || contrasenia.trim().isEmpty()) {
+                System.out.println("❌ Error: La contraseña no puede estar vacía");
+                return null;
+            }
+
             // Validar primero
             if (!validarCorreo(correo)) {
-                System.out.println("Error: Correo electrónico no válido");
+                System.out.println("❌ Error: Correo electrónico no válido");
                 return null;
             }
 
             if (!validarContrasenia(contrasenia)) {
-                System.out.println("Error: Contraseña no válida. Debe tener al menos 6 caracteres, una mayúscula y un carácter especial");
+                System.out.println("❌ Error: Contraseña no válida. Debe tener al menos 6 caracteres, una mayúscula y un carácter especial");
                 return null;
             }
 
             // Verificar si el correo ya existe
             if (buscarCorreo(correo)) {
-                System.out.println("Error: El correo ya está registrado");
+                System.out.println("❌ Error: El correo ya está registrado");
                 return null;
             }
 
@@ -209,11 +219,11 @@ public class AdministradorUsuario {
             Usuario usuario = new Usuario(correoCifrado, contraseniaCifrada, partida, estadisticas);
             this.usuarios.add(usuario);
 
-            System.out.println("Usuario registrado exitosamente.");
+            System.out.println("✅ Usuario registrado exitosamente.");
             return usuario; // ← IMPORTANTE: Retornar el usuario creado
 
         } catch (Exception e) {
-            System.out.println("Error inesperado durante el registro: " + e.getMessage());
+            System.out.println("❌ Error inesperado durante el registro: " + e.getMessage());
             return null;
         }
     }

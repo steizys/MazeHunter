@@ -9,11 +9,12 @@ public class Partida {
     private Instant tiempoInicio;
     private Instant tiempoFinal;
     private Estadistica estadistica;
-
-    private Duration tiempoAcumulado; // ✅ NUEVO: Tiempo acumulado cuando se pausa
+    private Duration tiempoAcumulado;
+    private boolean partidaActiva;
 
     public Partida() {
         this.tiempoAcumulado = Duration.ZERO;
+        this.partidaActiva = false;
     }
 
     public Partida(Laberinto laberinto, Jugador jugador, Instant tiempoInicio, Instant tiempoFinal, Estadistica estadistica) {
@@ -23,20 +24,31 @@ public class Partida {
         this.tiempoFinal = tiempoFinal;
         this.estadistica = estadistica;
         this.tiempoAcumulado = Duration.ZERO;
+        this.partidaActiva = (tiempoInicio != null);
+    }
+
+    // Método para INICIAR la partida
+    public void iniciarPartida() {
+        if (!partidaActiva) {
+            this.tiempoInicio = Instant.now();
+            this.tiempoFinal = null;
+            this.tiempoAcumulado = Duration.ZERO;
+            this.partidaActiva = true;
+        }
     }
 
     // Método para pausar el tiempo
     public void pausarTiempo() {
-        if (tiempoInicio != null && tiempoAcumulado != null) {
+        if (partidaActiva && tiempoInicio != null) {
             Duration tiempoTranscurrido = Duration.between(tiempoInicio, Instant.now());
             tiempoAcumulado = tiempoAcumulado.plus(tiempoTranscurrido);
-            tiempoInicio = null; // Detener el contador
+            tiempoInicio = null;
         }
     }
 
     // Método para reanudar el tiempo
     public void reanudarTiempo() {
-        if (tiempoInicio == null && tiempoAcumulado != null) {
+        if (partidaActiva && tiempoInicio == null) {
             tiempoInicio = Instant.now();
         }
     }
@@ -50,12 +62,23 @@ public class Partida {
         return tiempoTotal;
     }
 
-    // Método para finalizar la partida y obtener tiempo final
+    // Método para finalizar la partida CORREGIDO
     public Duration finalizarPartida() {
-        if (tiempoInicio != null) {
-            pausarTiempo(); // Pausar antes de finalizar
+        if (partidaActiva) {
+            if (tiempoInicio != null) {
+                Duration tiempoTranscurrido = Duration.between(tiempoInicio, Instant.now());
+                tiempoAcumulado = tiempoAcumulado.plus(tiempoTranscurrido);
+            }
+            this.tiempoFinal = Instant.now();
+            this.partidaActiva = false;
+            this.tiempoInicio = null;
         }
         return tiempoAcumulado;
+    }
+
+    // Método para verificar si la partida está activa
+    public boolean isPartidaActiva() {
+        return partidaActiva;
     }
 
     public Laberinto getLaberinto() {
