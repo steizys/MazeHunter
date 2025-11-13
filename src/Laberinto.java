@@ -238,7 +238,19 @@ public class Laberinto {
                 if (i==posicion.getX() &&  j==posicion.getY()) {
                     System.out.print("@"+ " ");
                 }else{
-                    System.out.print(matrizJuego[i][j].getRepresentacion() + " ");
+                    Celda celda = matrizJuego[i][j];
+                    // Si es muro, inicio o meta, mostramos su representación
+                    if(!celda.getRepresentacion().equals("#") &&
+                            !celda.getRepresentacion().equals("S") && !celda.getRepresentacion().equals("X")){
+                        if (celda.isVisitada()) {
+                            System.out.print("."+" ");
+                        } else {
+                            System.out.print(celda.getRepresentacion() + " ");
+                        }
+                    }else{
+                        System.out.print(celda.getRepresentacion() + " ");
+                    }
+
                 }
             }
             System.out.println();

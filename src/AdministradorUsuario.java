@@ -259,10 +259,7 @@ public class AdministradorUsuario {
             System.out.println(" Error: Contraseña no válida. Debe tener al menos 6 caracteres, una mayúscula y un carácter especial");
             return null;
         }
-        if (buscarCorreo(correo)) {
-            System.out.println(" Error: El correo ya está registrado");
-            return null;
-        }
+
         Laberinto laberinto = null;
         Jugador jugador = null;
         Partida partida = null;

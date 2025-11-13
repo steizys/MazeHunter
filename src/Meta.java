@@ -16,7 +16,8 @@ public class Meta extends Celda {
      * @param jugador Jugador que pasa por la meta
      */
     public  void comportamiento(Jugador jugador){
-        if (jugador.isObtuvoLlave() && (jugador.getCristalesRecolectados()>=1)){
+
+        if (jugador.isObtuvoLlave() ){
             System.out.println("HAS LLEGADO A LA META Y TIENES LA LLAVE");
             setVisitada(true);
         }else{

@@ -18,8 +18,11 @@ public class Llave extends Celda {
      * @param jugador Jugador que obtiene la llave
      */
     public  void comportamiento(Jugador jugador){
-        jugador.setObtuvoLlave(true);
-        System.out.println(" HAS OBTENIDO LA LLAVE");
+        if (!isVisitada()) {
+            setVisitada(true);
+            jugador.setObtuvoLlave(true);
+            System.out.println(" HAS OBTENIDO LA LLAVE");
+        }
     };
 
 
