@@ -20,6 +20,9 @@ public class Cristal extends Celda {
      * @param jugador Jugador que recolecta el cristal
      */
     public void comportamiento(Jugador jugador) {
-        jugador.setCristalesRecolectados(jugador.getCristalesRecolectados() + 1);
+        if (!isVisitada()) {
+            setVisitada(true);
+            jugador.setCristalesRecolectados(jugador.getCristalesRecolectados() + 1);
+        }
     };
 }
