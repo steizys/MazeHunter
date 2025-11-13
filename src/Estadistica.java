@@ -3,6 +3,12 @@ package src;
 import java.time.Duration;
 import java.time.Instant;
 
+/**
+ * Almacena estadísticas de una partida del juego
+ * @author Gabriela Cantos, Steizy Fornica, Amelie Moreno
+
+ * @version 1.0
+ */
 public class Estadistica {
     private Instant tiempoInicio;
     private Instant tiempoFinal;
@@ -10,13 +16,24 @@ public class Estadistica {
     private int cristalesRecolectados;
     private int puntosDeVida;
     private int trampasActivadas;
-    private Duration tiempoJugado; // ✅ NUEVO: Tiempo real jugado
+    private Duration tiempoJugado;
 
-    // Constructor vacío necesario para Jackson
+    /**
+     * Constructor vacío para Jackson
+     */
     public Estadistica() {
     }
 
-    // ✅ MODIFICADO: Ahora recibe Duration del tiempo jugado
+    /**
+     * Crea nueva estadística con todos los datos de partida
+     * @param tiempoInicial Inicio de partida
+     * @param tiempoFinal Fin de partida
+     * @param tamanoDeMatriz Tamaño del laberinto
+     * @param cristalesRecolectados Cristales recogidos
+     * @param puntosDeVida Vida restante
+     * @param trampasActivadas Trampas activadas
+     * @param tiempoJugado Tiempo real jugado
+     */
     public Estadistica(Instant tiempoInicial, Instant tiempoFinal, int tamanoDeMatriz,
                        int cristalesRecolectados, int puntosDeVida, int trampasActivadas,
                        Duration tiempoJugado) {
@@ -29,28 +46,24 @@ public class Estadistica {
         this.tiempoJugado = tiempoJugado;
     }
 
+    /**
+     * Muestra las estadísticas en consola
+     */
     public void mostrarEstadistica(){
         System.out.println("---- ESTADISTICAS ----");
-
-        // ✅ CORREGIDO: Usar el tiempo jugado real en lugar de calcular
         if (tiempoJugado != null) {
             long horas = tiempoJugado.toHours();
             long minutos = tiempoJugado.toMinutes() % 60;
             long segundos = tiempoJugado.getSeconds() % 60;
-
             System.out.println("- Tiempo: " + horas + "h " + minutos + "m " + segundos + "s");
+        } else if (tiempoInicio != null && tiempoFinal != null) {
+            Duration duracion = Duration.between(tiempoInicio, tiempoFinal);
+            System.out.println("- Tiempo: " +
+                    duracion.toHours() + "h " +
+                    (duracion.toMinutes() % 60) + "m " +
+                    (duracion.getSeconds() % 60) + "s");
         } else {
-            // Fallback: calcular desde tiempos si no hay tiempoJugado
-            Duration duracion;
-            if (tiempoInicio != null && tiempoFinal != null) {
-                duracion = Duration.between(tiempoInicio, tiempoFinal);
-                System.out.println("- Tiempo: " +
-                        duracion.toHours() + "h " +
-                        (duracion.toMinutes() % 60) + "m " +
-                        (duracion.getSeconds() % 60) + "s");
-            } else {
-                System.out.println("- Tiempo: No disponible");
-            }
+            System.out.println("- Tiempo: No disponible");
         }
 
         System.out.println("- Tamanio: " + this.tamanoDeMatriz);
@@ -59,7 +72,9 @@ public class Estadistica {
         System.out.println("- Trampas activadas: " + this.trampasActivadas);
     };
 
-    // GETTERS Y SETTERS
+    /**
+     * Getters and Setters
+     */
     public Duration getTiempoJugado() {
         return tiempoJugado;
     }
