@@ -437,12 +437,14 @@ public class Main {
             System.out.println(VERDE_OSCURO + "  ██║  ██║" + AMARILLO + "╚██████╔╝" + NARANJA + "██║ ╚████║" + VERDE + "   ██║   " + AMARILLO + "███████╗" + NARANJA + "██║  ██║" + RESET);
             System.out.println(VERDE_OSCURO + "  ╚═╝  ╚═╝" + AMARILLO + " ╚═════╝ " + NARANJA + "╚═╝  ╚═══╝" + VERDE + "   ╚═╝   " + AMARILLO + "╚══════╝" + NARANJA + "╚═╝  ╚═╝" + RESET);
             System.out.println(GRIS + "╚══════════════════════════════════════════════════════╝" + RESET);
-            // Centrado con el título MAZE HUNTER
-            System.out.println(AZUL + "          ╔════════════════════════════════╗" + RESET);
-            System.out.printf(AZUL + "          ║" + NEGRITA + AMARILLO + "   %-28s " + RESET + AZUL + "║\n" + RESET, "1. REGISTRARSE");
-            System.out.printf(AZUL + "          ║" + NEGRITA + VERDE + "   %-28s " + RESET + AZUL + "║\n" + RESET, "2. INICIAR SESIÓN");
-            System.out.printf(AZUL + "          ║" + NEGRITA + ROJO + "   %-28s " + RESET + AZUL + "║\n" + RESET, "3. SALIR");
-            System.out.println(AZUL + "          ╚════════════════════════════════╝" + RESET);
+
+            System.out.println(RESET + "                     Elaborado por " +
+                    "\n    Gabriela Cantos, Steizy Fornica y Amelie Moreno" + RESET);
+            System.out.println(RESET + "          ╔════════════════════════════════╗" + RESET);
+            System.out.printf(RESET + "          ║" + NEGRITA + AMARILLO + "   %-28s " + RESET + RESET + "║\n" + RESET, "1. REGISTRARSE");
+            System.out.printf(RESET + "          ║" + NEGRITA + VERDE + "   %-28s " + RESET + RESET + "║\n" + RESET, "2. INICIAR SESIÓN");
+            System.out.printf(RESET + "          ║" + NEGRITA + ROJO + "   %-28s " + RESET + RESET + "║\n" + RESET, "3. SALIR");
+            System.out.println(RESET + "          ╚════════════════════════════════╝" + RESET);
             System.out.print(NEGRITA + AMARILLO + "Seleccione una opción [" + VERDE + "1-3" + AMARILLO + "]: " + RESET);
 
             opcion = leerEntero();
