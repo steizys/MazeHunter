@@ -191,7 +191,6 @@ public class AdministradorUsuario {
         if (correo == null || correo.trim().isEmpty()) {
             return false;
         }
-
         try {
             InternetAddress correoAddr = new InternetAddress(correo.trim());
             correoAddr.validate();
@@ -275,23 +274,6 @@ public class AdministradorUsuario {
         System.out.println(" Usuario registrado exitosamente.");
         return usuario;
 
-    }
-
-    /**
-     * Inicia sesión de un usuario con sus credenciales.
-     *
-     * @param correo Correo electrónico del usuario
-     * @param contrasenia Contraseña del usuario
-     * @return true si el inicio de sesión es exitoso, false en caso contrario
-     */
-    public boolean iniciarSesion(String correo, String contrasenia) {
-        if (validarUsuario(correo, contrasenia)) {
-            System.out.println(" BIENVENIDO ");
-            return true;
-        } else {
-            System.out.println(" Usuario invalido ");
-            return false;
-        }
     }
 
     /**

@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Clase principal que gestiona el flujo del juego Maze Hunter
+ * Clase principal que gestiona el flujo completo del juego Maze Hunter.
+ * Controla la inicialización del sistema, autenticación de usuarios,
+ * gestión de partidas y la interfaz de usuario por consola.
  *
  * @author Gabriela Cantos, Steizy Fornica, Amelie Moreno
  * @version 1.0
@@ -19,7 +21,10 @@ public class Main {
     private static Usuario usuarioActual;
 
     /**
-     * Formatea la duración a un string legible
+     * Convierte una duración en un formato de tiempo legible (HH:MM:SS)
+     *
+     * @param duracion La duración a formatear
+     * @return String con el tiempo formateado en horas, minutos y segundos
      */
     private static String formatTiempo(Duration duracion) {
         long horas = duracion.toHours();
@@ -29,7 +34,9 @@ public class Main {
     }
 
     /**
-     * Controla el flujo de juego durante una partida
+     * Controla el flujo principal de juego durante una partida activa.
+     * Gestiona los movimientos del jugador, la visualización del laberinto,
+     * y las interacciones con las celdas especiales.
      */
     private static void jugarPartida() {
         Partida partida = usuarioActual.getPartida();
@@ -103,7 +110,9 @@ public class Main {
     }
 
     /**
-     * Muestra el estado actual del jugador
+     * Muestra el estado actual del jugador incluyendo vida, cristales y objetos recolectados.
+     *
+     * @param jugador El jugador cuyo estado se va a mostrar
      */
     private static void mostrarEstadoJugador(Jugador jugador) {
         System.out.println("\n--- ESTADO DEL JUGADOR ---");
@@ -114,7 +123,8 @@ public class Main {
     }
 
     /**
-     * Guarda la partida actual
+     * Guarda el estado actual de la partida en el archivo JSON.
+     * Maneja posibles errores de entrada/salida.
      */
     private static void guardarPartida() {
         try {
@@ -126,7 +136,9 @@ public class Main {
     }
 
     /**
-     * Finaliza la partida actual y guarda estadísticas
+     * Finaliza la partida actual, calcula estadísticas y las guarda.
+     *
+     * @param victoria true si el jugador ganó la partida, false si perdió
      */
     private static void finalizarPartida(boolean victoria) {
         Partida partida = usuarioActual.getPartida();
@@ -168,7 +180,9 @@ public class Main {
     }
 
     /**
-     * Lee un número entero desde la consola con validación
+     * Lee y valida un número entero desde la entrada estándar.
+     *
+     * @return El número entero validado ingresado por el usuario
      */
     private static int leerEntero() {
         while (true) {
@@ -181,7 +195,8 @@ public class Main {
     }
 
     /**
-     * Muestra el menú principal del juego después del login
+     * Muestra y gestiona el menú principal del juego después del inicio de sesión.
+     * Incluye opciones para jugar, ver estadísticas y cerrar sesión.
      */
     private static void mostrarMenuJuego() {
         while (usuarioActual != null) {
@@ -269,6 +284,12 @@ public class Main {
         }
     }
 
+    /**
+     * Punto de entrada principal del programa Maze Hunter.
+     * Inicializa el sistema, carga usuarios existentes y gestiona el menú de autenticación.
+     *
+     * @param args Argumentos de línea de comandos (no utilizados)
+     */
     public static void main(String[] args) {
         try {
             // Inicializar con lista vacía
