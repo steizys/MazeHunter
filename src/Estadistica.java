@@ -50,26 +50,39 @@ public class Estadistica {
      * Muestra las estadísticas en consola
      */
     public void mostrarEstadistica(){
-        System.out.println("---- ESTADISTICAS ----");
+        String RESET = "\u001B[0m";
+        String VERDE = "\u001B[32m";
+        String AZUL = "\u001B[34m";
+        String AMARILLO = "\u001B[33m";
+        String ROJO = "\u001B[31m";
+        String MORADO = "\u001B[35m";
+        String CIAN = "\u001B[36m";
+        String NEGRITA = "\u001B[1m";
+
+        System.out.println(NEGRITA + AMARILLO + "╔═══════════════════════════════╗");
+        System.out.println("║          ESTADÍSTICAS         ║");
+        System.out.println("╠═══════════════════════════════╣" + RESET);
+        String mostrarTiempo = "No disponible";
         if (tiempoJugado != null) {
             long horas = tiempoJugado.toHours();
             long minutos = tiempoJugado.toMinutes() % 60;
             long segundos = tiempoJugado.getSeconds() % 60;
-            System.out.println("- Tiempo: " + horas + "h " + minutos + "m " + segundos + "s");
+            mostrarTiempo = String.format("%02d:%02d:%02d", horas, minutos, segundos);
         } else if (tiempoInicio != null && tiempoFinal != null) {
             Duration duracion = Duration.between(tiempoInicio, tiempoFinal);
-            System.out.println("- Tiempo: " +
-                    duracion.toHours() + "h " +
-                    (duracion.toMinutes() % 60) + "m " +
-                    (duracion.getSeconds() % 60) + "s");
-        } else {
-            System.out.println("- Tiempo: No disponible");
+            long horas = duracion.toHours();
+            long minutos = duracion.toMinutes() % 60;
+            long segundos = duracion.getSeconds() % 60;
+            mostrarTiempo = String.format("%02d:%02d:%02d", horas, minutos, segundos);
         }
 
-        System.out.println("- Tamanio: " + this.tamanoDeMatriz);
-        System.out.println("- Cristales recolectados: " + this.cristalesRecolectados);
-        System.out.println("- Puntos de vida: " + this.puntosDeVida);
-        System.out.println("- Trampas activadas: " + this.trampasActivadas);
+        System.out.printf(NEGRITA + AMARILLO     + "║ " + RESET + "Tiempo: " + RESET + "%-30s " + AMARILLO    + "║\n", AMARILLO + mostrarTiempo + RESET);
+        System.out.printf(AMARILLO   + "║ " + RESET + "Tamaño del laberinto: " + RESET + "%-16s " + AMARILLO  + "║\n", VERDE + this.tamanoDeMatriz + "x" + this.tamanoDeMatriz + RESET);
+        System.out.printf(AMARILLO   + "║ " + RESET + "Cristales recolectados: " + RESET + "%-14s " + AMARILLO    + "║\n", AMARILLO + this.cristalesRecolectados + RESET);
+        String colorVida = this.puntosDeVida > 50 ? VERDE : this.puntosDeVida > 25 ? AMARILLO : ROJO;
+        System.out.printf(AMARILLO   + "║ " + RESET + "Puntos de vida: " + RESET + "%-22s " + AMARILLO    + "║\n", colorVida + this.puntosDeVida + "/100" + RESET);
+        System.out.printf(AMARILLO   + "║ " + RESET + "Trampas activadas: " + RESET + "%-19s " + AMARILLO     + "║\n", ROJO + this.trampasActivadas + RESET);
+        System.out.println(AMARILLO  + NEGRITA + "╚═══════════════════════════════╝" + RESET);
     };
 
     /**

@@ -223,32 +223,90 @@ public class Laberinto {
      * @param posicion Posición actual del jugador
      */
     public void mostrarLaberinto(Posicion posicion) {
-        System.out.println("\n=== LABERINTO " + tamanio + "x" + tamanio + " ===");
-        System.out.println("I = Inicio, M = Meta, # = Muro, T = Trampa, V = Vida, L = Llave, C = Cristal\n");
+        final String RESET = "\u001B[0m";
+
+        final String MARRON = "\u001B[38;5;94m";
+        final String VERDE = "\u001B[38;5;22m";
+        final String VERDEOSCURO = "\u001B[38;5;58m";
+        final String ROJO = "\u001B[38;5;88m";
+        final String AMARILLO = "\u001B[38;5;94m";
+        final String MAGENTA = "\u001B[38;5;90m";
+        final String AZUL = "\u001B[38;5;18m";
+        final String AZULOSCURO = "\u001B[38;5;17m";
+        final String GRIS = "\u001B[38;5;238m";
+        final String GRISOSCURO = "\u001B[38;5;235m";
+        final String CYAN = "\u001B[38;5;30m";
+
+        final String FONDOMARRON = "\u001B[48;5;130m";
+        final String FONDOVERDE = "\u001B[48;5;34m";
+        final String FONDOVERDEOSCURO = "\u001B[48;5;28m";
+        final String FONDOROJO = "\u001B[48;5;124m";
+        final String FONDOAMARILLO = "\u001B[48;5;136m";
+        final String FONDOMAGENTA = "\u001B[48;5;125m";
+        final String FONDOAZUL = "\u001B[48;5;19m";
+        final String FONDOAZULOSCURO = "\u001B[48;5;18m";
+        final String FONDOGRIS = "\u001B[48;5;240m";
+        final String FONDOGRISOSCURO = "\u001B[48;5;239m";
+        final String FONDOCYAN = "\u001B[48;5;37m";
+
+        final String AZUL_CIELO = "\u001B[38;5;39m";
+        final String FONDO_AZUL_CIELO = "\u001B[48;5;39m";
+        final String BLANCO = "\u001B[97m";
+
+        System.out.println("\n" + FONDO_AZUL_CIELO + BLANCO + "                                " + RESET);
+        System.out.println(FONDO_AZUL_CIELO + BLANCO + "         LABERINTO " + tamanio + "x" + tamanio + "        " + RESET);
+        System.out.println(FONDO_AZUL_CIELO + BLANCO + "                                " + RESET);
+
+        System.out.println(FONDOAZUL + BLANCO + "                                " + RESET);
+        System.out.println(FONDOAZUL + BLANCO + "    S = Inicio    X = Meta      " + RESET);
+        System.out.println(FONDOAZUL + BLANCO + "    # = Muro      T = Trampa    " + RESET);
+        System.out.println(FONDOAZUL + BLANCO + "    + = Vida      L = Llave     " + RESET);
+        System.out.println(FONDOAZUL + BLANCO + "    C = Cristal   @ = Jugador   " + RESET);
+        System.out.println(FONDOAZUL + BLANCO + "                                " + RESET);
+        System.out.println();
+        System.out.println(AMARILLO + "│   " + AZUL_CIELO + "CONTROLES: W↑ A← S↓ D→ " + ROJO + "X⏏" + AMARILLO + "  │" + RESET);
+        System.out.println();
 
         for (int i = 0; i < tamanio; i++) {
             for (int j = 0; j < tamanio; j++) {
-                if (i==posicion.getX() &&  j==posicion.getY()) {
-                    System.out.print("@"+ " ");
-                }else{
+                if (i == posicion.getX() && j == posicion.getY()) {
+                    System.out.print(FONDOAMARILLO + AMARILLO + " @ " + RESET);
+                } else {
                     Celda celda = matrizJuego[i][j];
-                    // Si es muro, inicio o meta, mostramos su representación
-                    if(!celda.getRepresentacion().equals("#") &&
-                            !celda.getRepresentacion().equals("S") && !celda.getRepresentacion().equals("X")){
-                        if (celda.isVisitada()) {
-                            System.out.print("."+" ");
-                        } else {
-                            System.out.print(celda.getRepresentacion() + " ");
-                        }
-                    }else{
-                        System.out.print(celda.getRepresentacion() + " ");
-                    }
+                    String simbolo = celda.getRepresentacion();
 
+                    if (!simbolo.equals("#") && !simbolo.equals("S") && !simbolo.equals("X")) {
+                        if (celda.isVisitada()) {
+                            System.out.print(FONDOGRIS + GRIS + " · " + RESET);
+                        } else {
+                            if (simbolo.equals("T")) {
+                                System.out.print(FONDOGRIS + ROJO + " T " + RESET);
+                            } else if (simbolo.equals("+")) {
+                                System.out.print(AMARILLO + FONDOGRIS+ " + " + RESET);
+                            } else if (simbolo.equals("L")) {
+                                System.out.print(AZUL + FONDOGRIS + " L " + RESET);
+                            } else if (simbolo.equals("C")) {
+                                System.out.print(CYAN + FONDOGRIS + " C " + RESET);
+                            } else {
+                                System.out.print(FONDOGRIS + GRIS + " · " + RESET);
+                            }
+                        }
+                    } else {
+                        if (simbolo.equals("#")) {
+                            System.out.print(FONDOVERDEOSCURO + VERDE + " # " + RESET);
+                        } else if (simbolo.equals("S")) {
+                            System.out.print(FONDOGRIS + AZULOSCURO + " S " + RESET);
+                        } else {
+                            System.out.print(FONDOGRIS + AZULOSCURO + " X " + RESET);
+                        }
+                    }
                 }
             }
             System.out.println();
         }
     }
+
+
 
     /**
      * Busca la posición inicial en la matriz

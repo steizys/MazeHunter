@@ -5,6 +5,7 @@ package src;
  * @version 1.0
  */
 public class Meta extends Celda {
+
     /**Constructor - crea celda de meta*/
     public Meta() {
         super("X", false, true);
@@ -15,15 +16,12 @@ public class Meta extends Celda {
      *
      * @param jugador Jugador que pasa por la meta
      */
-    public  void comportamiento(Jugador jugador){
-
-        if (jugador.isObtuvoLlave() ){
+    public void comportamiento(Jugador jugador){
+        if (jugador.isObtuvoLlave()) {
             System.out.println("HAS LLEGADO A LA META Y TIENES LA LLAVE");
             setVisitada(true);
-        }else{
+        } else {
             System.out.println("CUIDADO! HAS LLEGADO A LA META PERO NO TIENES LA LLAVE");
         }
     };
-
-
 }
