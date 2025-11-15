@@ -172,7 +172,7 @@ public class GestorJSON implements GuardarJson {
 
             // Comparar correos encriptados directamente
             if (usuarioGuardado.getCorreo().equals(correoActualEncriptado)) {
-                // ✅ REEMPLAZO COMPLETO del usuario
+                //  REEMPLAZO COMPLETO del usuario
                 todosLosUsuarios.set(i, usuarioActual);
                 usuarioEncontrado = true;
                 System.out.println("🔄 Usuario actualizado en la lista");
@@ -188,7 +188,7 @@ public class GestorJSON implements GuardarJson {
         // Guardar la lista completa
         guardarUsuarios(todosLosUsuarios);
 
-        // ✅ ACTUALIZAR la lista en memoria
+        //  ACTUALIZAR la lista en memoria
         administradorUsuario.setUsuarios(new ArrayList<>(todosLosUsuarios));
 
         System.out.println("💾 Estado del juego guardado exitosamente.");

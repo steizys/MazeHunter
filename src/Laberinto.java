@@ -32,7 +32,7 @@ public class Laberinto {
      */
     public Laberinto(int tamanio) {
         // Asegurar tamaño impar para que funcione bien el algoritmo
-        this.tamanio = (tamanio % 2 == 0) ? tamanio + 1 : tamanio;
+        this.tamanio = tamanio;
         this.matrizJuego = new Celda[this.tamanio][this.tamanio];
         this.random = new Random();
         crearLaberinto();
@@ -59,13 +59,6 @@ public class Laberinto {
     public Celda[][] getMatrizJuego() {
         return matrizJuego;
     }
-
-    /**
-     * Obtiene celda en posición específica
-     * @param x Coordenada X
-     * @param y Coordenada Y
-     * @return Celda en la posición solicitada
-     */
     public Celda getMatrizJuegoPosicion(int x, int y) {
         return matrizJuego[x][y];
     }
