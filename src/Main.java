@@ -34,11 +34,6 @@ public class Main {
     private static GestorJSON gestorJSON;
     private static Usuario usuarioActual;
 
-    private static void limpiarPantalla(){
-        for (int i = 0; i < 50; i++) {
-                System.out.println();
-            }
-    }
     /**
      * Convierte una duración en un formato de tiempo legible (HH:MM:SS)
      *
@@ -62,7 +57,6 @@ public class Main {
         Laberinto laberinto = partida.getLaberinto();
         Jugador jugador = partida.getJugador();
 
-        limpiarPantalla();
         System.out.println(AMARILLO + "\n╔════════════════════════════════╗");
         System.out.println("║       COMIENZA EL JUEGO        ║");
         System.out.println("╚════════════════════════════════╝" + RESET);
@@ -102,8 +96,16 @@ public class Main {
                 continue;
             }
 
-
             // Verificar si llegó a la meta
+            Posicion posicionMeta = laberinto.obtenerPosicionFinal();
+            Celda meta = laberinto.getMatrizJuegoPosicion(posicionMeta.getX(), posicionMeta.getY());
+
+            if (meta.isVisitada()) {
+                finalizarPartida(true);
+                return;
+            }
+
+            /* Verificar si llegó a la meta
             Posicion posicionActual = jugador.getPosicion();
             Posicion posicionMeta = laberinto.obtenerPosicionFinal();
 
@@ -111,13 +113,13 @@ public class Main {
                     posicionActual.getY() == posicionMeta.getY()) {
 
                 Celda meta = laberinto.getMatrizJuegoPosicion(posicionMeta.getX(), posicionMeta.getY());
-                meta.comportamiento(jugador);
+                //meta.comportamiento(jugador);
 
                 if (meta.isVisitada()) {
                     finalizarPartida(true);
                     return;
                 }
-            }
+            }*/
 
             // Guardar estado después de cada movimiento
             guardarPartida();
@@ -177,12 +179,10 @@ public class Main {
         if (victoria) {
             System.out.print(AMARILLO + "Presione Enter para continuar..." + RESET);
             scanner.nextLine();
-            limpiarPantalla();
             System.out.println(VERDE + "\n╔═══════════════════════════════╗");
             System.out.println("║    ¡FELICIDADES! HAS GANADO   ║");
             System.out.println("╚═══════════════════════════════╝" + RESET);
         } else {
-            limpiarPantalla();
             System.out.println(ROJO + "\n╔════════════════════════════════╗");
             System.out.println("║          GAME OVER             ║");
             System.out.println("║        Has perdido             ║");
@@ -204,7 +204,6 @@ public class Main {
         estadistica.mostrarEstadistica();
         System.out.print(AMARILLO + "Presione Enter para continuar..." + RESET);
         scanner.nextLine();
-        limpiarPantalla();
 
         // Guardar estadística
         try {
@@ -238,7 +237,6 @@ public class Main {
      */
     private static void mostrarMenuJuego() {
         while (usuarioActual != null) {
-            limpiarPantalla();
             System.out.println(AZUL + "\n╔════════════════════════════════╗");
             System.out.println("║" + AZUL_CLARO + NEGRITA + "         MENÚ PRINCIPAL         " + RESET + AZUL + "║");
             System.out.println("╠════════════════════════════════╣" + RESET);
@@ -251,7 +249,6 @@ public class Main {
 
             int opcion = leerEntero();
             if(opcion==1){
-                limpiarPantalla();
                 System.out.println(VERDE + "\n┌─────────────────────────────┐");
                 System.out.println("│       NUEVO LABERINTO       │");
                 System.out.println("└─────────────────────────────┘" + RESET);
@@ -300,11 +297,9 @@ public class Main {
                 System.out.println(VERDE + ">> Laberinto " + tamanio + "x" + tamanio + " creado exitosamente" + RESET);
                 System.out.print(AMARILLO + "Presione Enter para continuar..." + RESET);
                 scanner.nextLine();
-                limpiarPantalla();
                 jugarPartida();
             }
             else if(opcion==2){
-                limpiarPantalla();
                 System.out.println(AZUL + "\n┌─────────────────────────────┐");
                 System.out.println("│     LABERINTO GUARDADO      │");
                 System.out.println("└─────────────────────────────┘" + RESET);
@@ -325,14 +320,12 @@ public class Main {
                         System.out.println(ROJO + ">> No hay partida guardada" + RESET);
                         System.out.print(AMARILLO + "Presione Enter para continuar..." + RESET);
                         scanner.nextLine();
-                        limpiarPantalla();
                     }
                 } catch (IOException e) {
                     System.out.println(ROJO + ">> Error al cargar partida: " + e.getMessage() + RESET);
                 }
             }
             else if(opcion==3){
-                limpiarPantalla();
                 ArrayList<Estadistica> estadisticas = usuarioActual.getEstadisticas();
 
                 if (estadisticas == null || estadisticas.isEmpty()) {
@@ -385,7 +378,6 @@ public class Main {
                 System.out.println(MORADO + "╚══════╩══════════╩══════════════════╩══════════════════════╩════════════════╩═════════════════╝" + RESET);
                 System.out.print(AMARILLO + "\nPresione Enter para continuar..." + RESET);
                 scanner.nextLine();
-                limpiarPantalla();
             }else if(opcion==4){
                 //System.out.println(AZUL + ">> Sesión cerrada correctamente" + RESET);
                 usuarioActual = null;
@@ -422,7 +414,6 @@ public class Main {
         }
         int opcion=0;
         while (true && opcion!=3) {
-            limpiarPantalla();
             System.out.println(GRIS + "╔══════════════════════════════════════════════════════╗" + RESET);
             System.out.println(AMARILLO + "          ███╗   ███╗" + NARANJA + " █████╗" + VERDE + " ███████╗" + VERDE_OSCURO + "███████╗" + RESET);
             System.out.println(AMARILLO + "          ████╗ ████║" + NARANJA + "██╔══██╗" + VERDE + "╚══███╔╝" + VERDE_OSCURO + "██╔════╝" + RESET);
@@ -449,7 +440,6 @@ public class Main {
 
             opcion = leerEntero();
             if(opcion==1){
-                limpiarPantalla();
                 System.out.println(VERDE + "\n┌─────────────────────────────┐");
                 System.out.println("│         REGISTRARSE         │");
                 System.out.println("└─────────────────────────────┘" + RESET);
@@ -479,7 +469,6 @@ public class Main {
                     System.out.println(ROJO + ">> Las contraseñas no coinciden" + RESET);
                     System.out.print(AMARILLO + "Presione Enter para continuar..." + RESET);
                     scanner.nextLine();
-                    limpiarPantalla();
                 }else{
                     nuevoUsuario= administradorUsuario.registrar(correo, contrasenia);
                     if (nuevoUsuario != null) {
@@ -496,7 +485,6 @@ public class Main {
 
 
             }else if(opcion==2){
-                limpiarPantalla();
                 System.out.println(AZUL + "\n┌─────────────────────────────┐");
                 System.out.println("│       INICIAR SESIÓN        │");
                 System.out.println("└─────────────────────────────┘" + RESET);
@@ -512,7 +500,6 @@ public class Main {
                     administradorUsuario.recuperarContrasenia(correo);
                     System.out.print(AMARILLO + "Presione Enter para continuar..." + RESET);
                     scanner.nextLine();
-                    limpiarPantalla();
                     continue;
 
                 }else{
@@ -524,11 +511,9 @@ public class Main {
                         System.out.println(ROJO + ">> Credenciales inválidas" + RESET);
                         System.out.print(AMARILLO + "Presione Enter para continuar..." + RESET);
                         scanner.nextLine();
-                        limpiarPantalla();
                     }
                 }
             }else if(opcion==3){
-                limpiarPantalla();
                 System.out.println(MARRON + ">> ¡Hasta pronto!" + RESET);
                 return;
             }else{
