@@ -1,18 +1,12 @@
 package src;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Pattern;
 
 import javax.mail.internet.InternetAddress;
-import java.time.Instant;
 
 import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
-import java.security.SecureRandom;
-import java.io.IOException;
 
 /**
  * Clase encargada de gestionar los usuarios del sistema.
