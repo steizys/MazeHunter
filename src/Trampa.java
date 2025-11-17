@@ -10,8 +10,8 @@ public class Trampa extends Celda {
         super("T", false, true);
     }
     /**
-     * Procedimiento que define el efecto o efecto que una trampa
-     * tiene sobre el jugador al interactuar con ella dentro del laberinto.
+     * Procedimiento que define el efecto de una trampa
+     * sobre el jugador al interactuar con ella dentro del laberinto.
      * <p>
      * <ul>
      * <li>Resta 5 puntos de vida al {@link Jugador}.</li>

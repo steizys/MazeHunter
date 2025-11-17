@@ -19,6 +19,7 @@ public class VidaExtra extends Celda {
     }
 
     /**
+     * Implementa el comportamiento cuando el jugador entra en esta celda.
      * Añade 5 puntos de vida al jugador
      * @param jugador Jugador que recibe la vida extra
      */

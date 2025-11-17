@@ -125,52 +125,109 @@ public class Partida {
     }
 
     /**
-     * Getters and Setters
+     * Obtiene el laberinto asociado a la partida.
+     *
+     * @return El laberinto de la partida actual
      */
     public Laberinto getLaberinto() {
         return laberinto;
     }
 
+    /**
+     * Establece el laberinto para la partida.
+     *
+     * @param laberinto Nuevo laberinto para la partida
+     */
     public void setLaberinto(Laberinto laberinto) {
         this.laberinto = laberinto;
     }
 
+    /**
+     * Obtiene el jugador de la partida.
+     *
+     * @return El jugador asociado a esta partida
+     */
     public Jugador getJugador() {
         return jugador;
     }
 
+    /**
+     * Establece el jugador para la partida.
+     *
+     * @param jugador Nuevo jugador para la partida
+     */
     public void setJugador(Jugador jugador) {
         this.jugador = jugador;
     }
 
+    /**
+     * Obtiene el momento de inicio de la partida.
+     *
+     * @return Instant del inicio de partida, o null si no ha comenzado
+     */
     public Instant getTiempoInicio() {
         return tiempoInicio;
     }
 
+    /**
+     * Establece el momento de inicio de la partida.
+     *
+     * @param tiempoInicio Nuevo momento de inicio de partida
+     */
     public void setTiempoInicio(Instant tiempoInicio) {
         this.tiempoInicio = tiempoInicio;
     }
 
+    /**
+     * Obtiene el momento de finalización de la partida.
+     *
+     * @return Instant del fin de partida, o null si no ha finalizado
+     */
     public Instant getTiempoFinal() {
         return tiempoFinal;
     }
 
+    /**
+     * Establece el momento de finalización de la partida.
+     *
+     * @param tiempoFinal Nuevo momento de finalización de partida
+     */
     public void setTiempoFinal(Instant tiempoFinal) {
         this.tiempoFinal = tiempoFinal;
     }
 
+    /**
+     * Obtiene las estadísticas de la partida.
+     *
+     * @return Estadísticas asociadas a esta partida
+     */
     public Estadistica getEstadistica() {
         return estadistica;
     }
 
+    /**
+     * Establece las estadísticas para la partida.
+     *
+     * @param estadistica Nuevas estadísticas para la partida
+     */
     public void setEstadistica(Estadistica estadistica) {
         this.estadistica = estadistica;
     }
 
+    /**
+     * Obtiene el tiempo acumulado de juego (incluyendo pausas).
+     *
+     * @return Duración acumulada del tiempo de juego efectivo
+     */
     public Duration getTiempoAcumulado() {
         return tiempoAcumulado;
     }
 
+    /**
+     * Establece el tiempo acumulado de juego.
+     *
+     * @param tiempoAcumulado Nueva duración acumulada del tiempo de juego
+     */
     public void setTiempoAcumulado(Duration tiempoAcumulado) {
         this.tiempoAcumulado = tiempoAcumulado;
     }
