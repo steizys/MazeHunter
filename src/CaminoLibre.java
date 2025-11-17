@@ -14,5 +14,15 @@ public class CaminoLibre extends Celda {
         super(".", false, true);
     }
 
-    public void comportamiento(Jugador jugador){};
+    /**
+     * Implementa el comportamiento cuando el jugador entra en esta celda.
+     *
+     * <p>Para el camino libre, no se aplica ningún efecto especial al jugador,
+     * permitiendo el movimiento libre a través de esta celda.</p>
+     *
+     * @param jugador El jugador que entra en la celda
+     * @see Jugador
+     */
+    public void comportamiento(Jugador jugador) {
+    }
 }

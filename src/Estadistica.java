@@ -73,60 +73,113 @@ public class Estadistica {
     };
 
     /**
-     * Getters and Setters
+     * Obtiene el tiempo total jugado en la partida
+     * @return Duración del tiempo jugado
      */
     public Duration getTiempoJugado() {
         return tiempoJugado;
     }
 
+    /**
+     * Establece el tiempo total jugado en la partida
+     * @param tiempoJugado Duración del tiempo jugado
+     */
     public void setTiempoJugado(Duration tiempoJugado) {
         this.tiempoJugado = tiempoJugado;
     }
 
+    /**
+     * Obtiene el momento de inicio de la partida
+     * @return Instant representando el inicio
+     */
     public Instant getTiempoInicio() {
         return tiempoInicio;
     }
 
+    /**
+     * Establece el momento de inicio de la partida
+     * @param tiempoInicio Instant representando el inicio
+     */
     public void setTiempoInicio(Instant tiempoInicio) {
         this.tiempoInicio = tiempoInicio;
     }
 
+    /**
+     * Obtiene el momento de finalización de la partida
+     * @return Instant representando el final
+     */
     public Instant getTiempoFinal() {
         return tiempoFinal;
     }
 
+    /**
+     * Establece el momento de finalización de la partida
+     * @param tiempoFinal Instant representando el final
+     */
     public void setTiempoFinal(Instant tiempoFinal) {
         this.tiempoFinal = tiempoFinal;
     }
 
+    /**
+     * Obtiene el número de trampas activadas durante la partida
+     * @return Cantidad de trampas activadas
+     */
     public int getTrampasActivadas() {
         return trampasActivadas;
     }
 
+    /**
+     * Establece el número de trampas activadas durante la partida
+     * @param trampasActivadas Cantidad de trampas activadas
+     */
     public void setTrampasActivadas(int trampasActivadas) {
         this.trampasActivadas = trampasActivadas;
     }
 
+    /**
+     * Obtiene el tamaño de la matriz del laberinto
+     * @return Tamaño de la matriz (n x n)
+     */
     public int getTamanoDeMatriz() {
         return tamanoDeMatriz;
     }
 
+    /**
+     * Establece el tamaño de la matriz del laberinto
+     * @param tamanoDeMatriz Tamaño de la matriz (n x n)
+     */
     public void setTamanoDeMatriz(int tamanoDeMatriz) {
         this.tamanoDeMatriz = tamanoDeMatriz;
     }
 
+    /**
+     * Obtiene la cantidad de cristales recolectados
+     * @return Número de cristales recolectados
+     */
     public int getCristalesRecolectados() {
         return cristalesRecolectados;
     }
 
+    /**
+     * Establece la cantidad de cristales recolectados
+     * @param cristalesRecolectados Número de cristales recolectados
+     */
     public void setCristalesRecolectados(int cristalesRecolectados) {
         this.cristalesRecolectados = cristalesRecolectados;
     }
 
+    /**
+     * Obtiene los puntos de vida restantes al finalizar la partida
+     * @return Puntos de vida restantes
+     */
     public int getPuntosDeVida() {
         return puntosDeVida;
     }
 
+    /**
+     * Establece los puntos de vida restantes al finalizar la partida
+     * @param puntosDeVida Puntos de vida restantes
+     */
     public void setPuntosDeVida(int puntosDeVida) {
         this.puntosDeVida = puntosDeVida;
     }

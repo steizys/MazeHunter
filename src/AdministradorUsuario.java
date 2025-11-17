@@ -73,11 +73,27 @@ public class AdministradorUsuario {
     }
 
     /**
-     * Getters and Setters.
+     * Obtiene la lista de usuarios registrados en el sistema.
+     *
+     * <p>La lista contiene todos los objetos {@link Usuario} almacenados,
+     * incluyendo sus datos cifrados como correo y contraseña.</p>
+     *
+     * @return ArrayList de objetos Usuario que contiene a todos los usuarios del sistema
+     * @see Usuario
      */
     public ArrayList<Usuario> getUsuarios() {
         return usuarios;
     }
+
+
+    /**
+     * Reemplaza la lista completa de usuarios del sistema.
+     *
+     * <p>Este método permite cargar una nueva lista de usuarios</p>
+     *
+     * @param usuarios Nueva lista de usuarios que reemplazará la lista actual
+     * @see Usuario
+     */
     public void setUsuarios(ArrayList<Usuario> usuarios) {
         this.usuarios = usuarios;
     }

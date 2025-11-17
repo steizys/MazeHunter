@@ -39,23 +39,49 @@ public class Laberinto {
     }
 
     /**
-     * Getters and Setters
+     * Establece el tamaño del laberinto
+     * @param tamanio Nuevo tamaño del laberinto
      */
     public void setTamanio(int tamanio) {
         this.tamanio = tamanio;
     }
+
+    /**
+     * Establece la matriz de juego del laberinto
+     * @param matrizJuego Nueva matriz de celdas
+     */
     public void setMatrizJuego(Celda[][] matrizJuego) {
         this.matrizJuego = matrizJuego;
     }
+
+    /**
+     * Establece la posición inicial del jugador
+     * @param posicionInicial Nueva posición inicial
+     */
     public void setPosicionInicial(Posicion posicionInicial) {
         this.posicionInicial = posicionInicial;
     }
+
+    /**
+     * Establece la posición final (meta) del laberinto
+     * @param posicionFinal Nueva posición final
+     */
     public void setPosicionFinal(Posicion posicionFinal) {
         this.posicionFinal = posicionFinal;
     }
+
+    /**
+     * Obtiene el tamaño actual del laberinto
+     * @return Tamaño del laberinto
+     */
     public int getTamanio() {
         return tamanio;
     }
+
+    /**
+     * Obtiene la matriz completa del laberinto
+     * @return Matriz de celdas del laberinto
+     */
     public Celda[][] getMatrizJuego() {
         return matrizJuego;
     }
@@ -217,10 +243,18 @@ public class Laberinto {
         return matrizJuego;
     }
 
+    /**
+     * Obtiene la posición inicial del jugador
+     * @return Posición inicial
+     */
     public Posicion obtenerPosicionInicial(){
         return posicionInicial;
     }
 
+    /**
+     * Obtiene la posición final (meta) del laberinto
+     * @return Posición final
+     */
     public Posicion obtenerPosicionFinal(){
         return posicionFinal;
     }
@@ -280,10 +314,7 @@ public class Laberinto {
             posicionFinal = new Posicion(tamanio - 2, tamanio - 2);
         }
     }
-
-    /**
-     * Repara las posiciones si se perdieron al cargar desde JSON
-     */
+    
     /**
      * Repara las posiciones si se perdieron al cargar desde JSON
      */
@@ -309,28 +340,6 @@ public class Laberinto {
                         posicionFinal.getY() < 0 || posicionFinal.getY() >= tamanio)) {
             System.out.println("⚠️  Posición final inválida, reparando...");
             buscarPosicionFinal();
-        }
-    }
-
-    /**
-     * Verifica que todas las posiciones sean válidas y consistentes
-     */
-    public void verificarConsistencia() {
-        repararPosiciones();
-
-        // Verificar que la posición inicial y final sean transitables
-        if (posicionInicial != null && matrizJuego != null) {
-            Celda celdaInicio = matrizJuego[posicionInicial.getX()][posicionInicial.getY()];
-            if (celdaInicio != null && !celdaInicio.isTransitable()) {
-                System.out.println("⚠️  Advertencia: Posición inicial no transitable");
-            }
-        }
-
-        if (posicionFinal != null && matrizJuego != null) {
-            Celda celdaMeta = matrizJuego[posicionFinal.getX()][posicionFinal.getY()];
-            if (celdaMeta != null && !celdaMeta.isTransitable()) {
-                System.out.println("⚠️  Advertencia: Posición final no transitable");
-            }
         }
     }
 

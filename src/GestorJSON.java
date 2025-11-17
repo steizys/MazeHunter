@@ -188,7 +188,7 @@ public class GestorJSON implements GuardarJson {
         // Guardar la lista completa
         guardarUsuarios(todosLosUsuarios);
 
-        // ✅ ACTUALIZAR la lista en memoria
+        //  ACTUALIZAR la lista en memoria
         administradorUsuario.setUsuarios(new ArrayList<>(todosLosUsuarios));
 
         System.out.println("💾 Estado del juego guardado exitosamente.");

@@ -10,6 +10,7 @@ public class Meta extends Celda {
         super("X", false, true);
     }
     /**
+     * Implementa el comportamiento cuando el jugador entra en esta celda.
      * Comprueba que el jugador tenga la llave para para marcar que el jugador
      * ha llegado a la meta y valida que la cantidad de cristales recolectados sea mayor igual a 1
      *

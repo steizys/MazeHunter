@@ -63,41 +63,109 @@ public class Jugador implements Movimiento {
     }
 
     /**
-     * Getters and Setters
+     * Obtiene los puntos de vida actuales del jugador.
+     *
+     * @return Puntos de vida actuales (0-100)
      */
     public int getPuntosDeVida() {
         return puntosDeVida;
     }
+
+    /**
+     * Establece los puntos de vida del jugador.
+     *
+     * @param puntosDeVida Nuevos puntos de vida (0-100)
+     */
     public void setPuntosDeVida(int puntosDeVida) {
         this.puntosDeVida = puntosDeVida;
     }
+
+    /**
+     * Obtiene la representación visual del jugador.
+     *
+     * @return String que representa al jugador ("@")
+     */
     public String getRepresentacion() {
         return representacion;
     }
+
+    /**
+     * Establece la representación visual del jugador.
+     *
+     * @param representacion Nueva representación visual
+     */
     public void setRepresentacion(String representacion) {
         this.representacion = representacion;
     }
+
+    /**
+     * Verifica si el jugador ha obtenido la llave.
+     *
+     * @return true si tiene la llave, false en caso contrario
+     */
     public boolean isObtuvoLlave() {
         return obtuvoLlave;
     }
+
+    /**
+     * Establece el estado de posesión de la llave.
+     *
+     * @param obtuvoLlave true si obtiene la llave, false si la pierde
+     */
     public void setObtuvoLlave(boolean obtuvoLlave) {
         this.obtuvoLlave = obtuvoLlave;
     }
+
+    /**
+     * Obtiene la posición actual del jugador en el laberinto.
+     *
+     * @return Objeto Posicion con las coordenadas actuales
+     */
     public Posicion getPosicion() {
         return posicion;
     }
+
+    /**
+     * Establece la posición del jugador en el laberinto.
+     *
+     * @param posicion Nueva posición del jugador
+     */
     public void setPosicion(Posicion posicion) {
         this.posicion = posicion;
     }
+
+    /**
+     * Obtiene la cantidad de cristales recolectados.
+     *
+     * @return Número de cristales recolectados
+     */
     public int getCristalesRecolectados() {
         return cristalesRecolectados;
     }
+
+    /**
+     * Establece la cantidad de cristales recolectados.
+     *
+     * @param cristalesRecolectados Nuevo número de cristales
+     */
     public void setCristalesRecolectados(int cristalesRecolectados) {
         this.cristalesRecolectados = cristalesRecolectados;
     }
+
+    /**
+     * Obtiene el número de trampas activadas por el jugador.
+     *
+     * @return Cantidad de trampas activadas
+     */
     public int getTrampasActivadas() {
         return trampasActivadas;
     }
+
+    /**
+     * Establece el número de trampas activadas por el jugador.
+     *
+     * @param trampasActivadas Nueva cantidad de trampas activadas
+     */
     public void setTrampasActivadas(int trampasActivadas) {
         this.trampasActivadas = trampasActivadas;
     }

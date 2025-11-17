@@ -16,6 +16,7 @@ public class Cristal extends Celda {
     }
 
     /**
+     * Implementa el comportamiento cuando el jugador entra en esta celda.
      * Aumenta en 1 los cristales recolectados del jugador
      * @param jugador Jugador que recolecta el cristal
      */

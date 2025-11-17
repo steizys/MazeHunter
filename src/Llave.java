@@ -12,7 +12,8 @@ public class Llave extends Celda {
         super("L", false, true);
     }
     /**
-     * Otorga la llave al jugador cuando pisa esta celda
+     * Implementa el comportamiento cuando el jugador entra en esta celda.
+     * Otorga la llave al jugador
      * Marca que el jugador obtuvo la llave
      *
      * @param jugador Jugador que obtiene la llave
