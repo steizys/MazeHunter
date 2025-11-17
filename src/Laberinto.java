@@ -376,28 +376,6 @@ public class Laberinto {
     }
 
     /**
-     * Verifica que todas las posiciones sean válidas y consistentes
-     */
-    public void verificarConsistencia() {
-        repararPosiciones();
-
-        // Verificar que la posición inicial y final sean transitables
-        if (posicionInicial != null && matrizJuego != null) {
-            Celda celdaInicio = matrizJuego[posicionInicial.getX()][posicionInicial.getY()];
-            if (celdaInicio != null && !celdaInicio.isTransitable()) {
-                System.out.println("⚠️  Advertencia: Posición inicial no transitable");
-            }
-        }
-
-        if (posicionFinal != null && matrizJuego != null) {
-            Celda celdaMeta = matrizJuego[posicionFinal.getX()][posicionFinal.getY()];
-            if (celdaMeta != null && !celdaMeta.isTransitable()) {
-                System.out.println("⚠️  Advertencia: Posición final no transitable");
-            }
-        }
-    }
-
-    /**
      * Reinicia el estado del laberinto al cargar una partida
      * Repara posiciones y restaura representaciones visuales
      */
