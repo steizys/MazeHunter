@@ -193,6 +193,7 @@ public class Main {
 
         // Crear nuevo laberinto
         Laberinto laberinto = new Laberinto(tamanio);
+        laberinto.verificarConsistencia();
 
         // Crear jugador en posición inicial
         Posicion posicionInicial = laberinto.obtenerPosicionInicial();

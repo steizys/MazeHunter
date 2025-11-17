@@ -23,6 +23,11 @@ public class VidaExtra extends Celda {
      * @param jugador Jugador que recibe la vida extra
      */
     public void comportamiento(Jugador jugador) {
-        jugador.setPuntosDeVida(jugador.getPuntosDeVida() + 5);
+        if (!isVisitada()) {
+            setVisitada(true);
+            if (jugador.getPuntosDeVida() < 100) {
+                jugador.setPuntosDeVida(jugador.getPuntosDeVida() + 5);
+            }
+        }
     }
 }

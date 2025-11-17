@@ -1,18 +1,12 @@
 package src;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Pattern;
 
 import javax.mail.internet.InternetAddress;
-import java.time.Instant;
 
 import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
-import java.security.SecureRandom;
-import java.io.IOException;
 
 /**
  * Clase encargada de gestionar los usuarios del sistema.
@@ -140,7 +134,7 @@ public class AdministradorUsuario {
         for (Usuario usuario : usuarios) {
             try {
                 String correoDescifrado = descifrar(usuario.getCorreo());
-                if (correo.equals(correoDescifrado)) {
+                if (correo.toLowerCase().equals(correoDescifrado.toLowerCase())) {
                     return true;
                 }
             } catch (Exception e) {
@@ -161,7 +155,7 @@ public class AdministradorUsuario {
         for (Usuario usuario : usuarios) {
             try {
                 String correoDescifrado = descifrar(usuario.getCorreo());
-                if (correo.equals(correoDescifrado)) {
+                if (correo.toLowerCase().equals(correoDescifrado.toLowerCase())) {
                     return usuario;
                 }
             } catch (Exception e) {
@@ -185,7 +179,7 @@ public class AdministradorUsuario {
                 String correoAlmacenadoDescifrado = descifrar(usuario.getCorreo());  // Descifrar lo almacenado y comparar con lo ingresado
                 String contraseniaAlmacenadaDescifrada = descifrar(usuario.getContrasenia());
 
-                if (correoAlmacenadoDescifrado.equals(correo) &&
+                if (correoAlmacenadoDescifrado.toLowerCase().equals(correo.toLowerCase()) &&
                         contraseniaAlmacenadaDescifrada.equals(contrasenia)) {
                     return true;
                 }
@@ -207,7 +201,6 @@ public class AdministradorUsuario {
         if (correo == null || correo.trim().isEmpty()) {
             return false;
         }
-
         try {
             InternetAddress correoAddr = new InternetAddress(correo.trim());
             correoAddr.validate();
@@ -275,10 +268,11 @@ public class AdministradorUsuario {
             System.out.println(" Error: Contraseña no válida. Debe tener al menos 6 caracteres, una mayúscula y un carácter especial");
             return null;
         }
-        if (buscarCorreo(correo)) {
-            System.out.println(" Error: El correo ya está registrado");
+        if (buscarCorreo(correo.toLowerCase())) {
+            System.out.println(" Error: El correo electrónico ya está registrado");
             return null;
         }
+
         Laberinto laberinto = null;
         Jugador jugador = null;
         Partida partida = null;
@@ -291,26 +285,9 @@ public class AdministradorUsuario {
         Usuario usuario = new Usuario(correoCifrado, contraseniaCifrada, partida, estadisticas);
         this.usuarios.add(usuario);
 
-        System.out.println(" Usuario registrado exitosamente.");
+        //System.out.println(" Usuario registrado exitosamente.");
         return usuario;
 
-    }
-
-    /**
-     * Inicia sesión de un usuario con sus credenciales.
-     *
-     * @param correo Correo electrónico del usuario
-     * @param contrasenia Contraseña del usuario
-     * @return true si el inicio de sesión es exitoso, false en caso contrario
-     */
-    public boolean iniciarSesion(String correo, String contrasenia) {
-        if (validarUsuario(correo, contrasenia)) {
-            System.out.println(" BIENVENIDO ");
-            return true;
-        } else {
-            System.out.println(" Usuario invalido ");
-            return false;
-        }
     }
 
     /**
@@ -375,7 +352,7 @@ public class AdministradorUsuario {
      * @param correo Correo electrónico del usuario que solicita la recuperación
      */
     public void recuperarContrasenia(String correo) {
-        Usuario usuario = buscarUsuario(correo);
+        Usuario usuario = buscarUsuario(correo.toLowerCase());
         if (usuario != null) {
             String contraseniaDescifrada = obtenerContraseniaDescifrada(usuario);
             System.out.println("La contraseña de su correo es: " + contraseniaDescifrada);

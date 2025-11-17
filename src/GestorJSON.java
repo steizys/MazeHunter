@@ -172,17 +172,17 @@ public class GestorJSON implements GuardarJson {
 
             // Comparar correos encriptados directamente
             if (usuarioGuardado.getCorreo().equals(correoActualEncriptado)) {
-                // ✅ REEMPLAZO COMPLETO del usuario
+                //  REEMPLAZO COMPLETO del usuario
                 todosLosUsuarios.set(i, usuarioActual);
                 usuarioEncontrado = true;
-                System.out.println("🔄 Usuario actualizado en la lista");
+                //System.out.println("Usuario actualizado");
                 break;
             }
         }
 
         if (!usuarioEncontrado) {
             todosLosUsuarios.add(usuarioActual);
-            System.out.println("➕ Usuario nuevo agregado a la lista");
+            //System.out.println(" Usuario nuevo agregado");
         }
 
         // Guardar la lista completa
@@ -191,7 +191,7 @@ public class GestorJSON implements GuardarJson {
         //  ACTUALIZAR la lista en memoria
         administradorUsuario.setUsuarios(new ArrayList<>(todosLosUsuarios));
 
-        System.out.println("💾 Estado del juego guardado exitosamente.");
+        //System.out.println("💾 Estado del juego guardado exitosamente.");
     }
 
 
@@ -215,7 +215,7 @@ public class GestorJSON implements GuardarJson {
                 if (usuario.getPartida() != null && usuario.getPartida().getLaberinto() != null) {
                     usuario.getPartida().getLaberinto().reiniciarEstado();
                 }
-                System.out.println("✅ Partida cargada para: " + correo);
+                //System.out.println("✅ Partida cargada para: " + correo);
                 return usuario;
             }
         }
